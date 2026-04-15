@@ -103,10 +103,15 @@ const Homelayout = () => {
     );
 
   return (
-    <div className="min-h-screen bg-[#FDFDFF] flex items-center justify-center p-3">
-      <div className="bg-white border border-gray-100 rounded-[3rem] w-full max-w-lg shadow-[0_30px_80px_rgba(0,0,0,0.06)] overflow-hidden">
+    /* Added Gradient Background here */
+    <div className="min-h-screen w-full flex items-center justify-center bg-gradient-to-br from-[#1c92ff] via-[#929FBF] to-white p-4 font-sans">
+      
+      {/* Container Card with slight glass effect */}
+      <div className="bg-white/95 backdrop-blur-sm border border-white/20 rounded-[3rem] w-full max-w-lg shadow-[0_30px_80px_rgba(0,0,0,0.1)] overflow-hidden transition-all duration-500">
+        
         {/* PROFILE DISPLAY VIEW */}
         <Display view={view} data={data} setView={setView} handleLogout={handleLogout} />
+        
         <EditProfile
           view={view}
           setView={setView}
@@ -115,6 +120,7 @@ const Homelayout = () => {
           registerEdit={registerEdit}
           profileMutation={profileMutation}
         />
+        
         <UpdatePass
           view={view}
           setView={setView}

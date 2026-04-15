@@ -1,7 +1,7 @@
 import React, { Profiler } from "react";
 import { createBrowserRouter } from "react-router";
 import { RouterProvider } from "react-router/dom";
-import AuthLayout from "../Layout/AuthLayout";
+import AuthLayout from "../layout/AuthLayout";
 import Homelayout from "../layout/Homelayout";
 import ProtectedRoute from "../components/ProtectedRoute";
 import PublicRoute from "../components/PublicRoute";
