@@ -68,7 +68,7 @@ const updatePasswordController = async (req, res) => {
         // 3. CORRECT COMPARE: Compare plain text with DB hash
         // DO NOT hash currentPassword before comparing!
         let isMatch = await bcrypt.compare(currentPassword, user.password);
-        
+
         if (!isMatch) {
             return res.status(400).json({
                 success: false,
@@ -76,13 +76,11 @@ const updatePasswordController = async (req, res) => {
             });
         }
 
-        // 4. Hash the NEW password
-        let hashedNewPassword = await bcrypt.hash(newPassword, 10);
-
         // 5. Update and Save
-        user.password = hashedNewPassword;
+        user.password = newPassword;
+        // When you call this, the Model's pre("save") will hash it correctly ONCE.
         await user.save();
-       console.log("password updated successfully for userID-->", userId)
+        console.log("password updated successfully for userID-->", userId)
         return res.status(200).json({
             success: true,
             message: "Password updated successfully",

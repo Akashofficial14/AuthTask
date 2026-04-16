@@ -11,7 +11,7 @@ import {
 import { InfoRow } from "./MiniComponent";
 
 const Display = ({ view, data, setView, handleLogout }) => {
-    console.log("Profile Data:", data.name); // Debugging line to check data structure
+    // console.log("Profile Data:", data.name); // Debugging line to check data structure
   return (
     <>
       {" "}
