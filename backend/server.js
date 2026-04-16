@@ -11,8 +11,12 @@ connectDB()
 app.use(express.json())
 app.use(cookieParser())
 app.set("view engine", "ejs")
+const allowedOrigin=[
+    'http://localhost:5173', // Keep this for local testing
+  'https://auth-task-duqb.vercel.app' // ADD YOUR VERCEL URL HERE
+]
 app.use(cors({
-    origin:"http://localhost:5173",
+    origin:allowedOrigin,
     credentials:true
 }))
 app.use(express.urlencoded({extended:true}))
