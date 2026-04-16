@@ -2,7 +2,7 @@ const { default: mongoose } = require("mongoose")
 
 const connectDB=async()=>{
  try {
-    let res=await mongoose.connect("mongodb://localhost:27017/auth-project")
+    let res=await mongoose.connect(process.env.MONGO_URI)
     if(res){
         console.log("mongoDB connected")
     }
