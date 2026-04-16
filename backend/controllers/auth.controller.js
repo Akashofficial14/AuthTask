@@ -3,7 +3,7 @@ const sendMail = require("../services/mail.service")
 const jwt = require("jsonwebtoken")
 const registerController = async (req, res) => {
     try {
-        let { name, email, password ,city,mobileNumber} = req.body
+        let { name, email, password, city, mobileNumber } = req.body
         if (!name || !email || !password || !city || !mobileNumber) return res.status(400).json({
             message: "All fields are required"
         })
@@ -12,7 +12,7 @@ const registerController = async (req, res) => {
             message: "user already exists"
         })
         let newUser = await userModel.create({
-            name, email, password ,city,mobileNumber
+            name, email, password, city, mobileNumber
         })
         if (!newUser) return res.status(400).json({
             message: "Something went wrong"
@@ -94,10 +94,10 @@ const loginController = async (req, res) => {
         let token = existedUser.generateToken()
         res.cookie("token", token, {
             httpOnly: true,
-            secure: false,  // Set to false for localhost development
-            sameSite: "lax",  // Use 'lax' for localhost
+            secure: true,      // MUST be true for SameSite: 'None'
+            sameSite: "none",  // Allows cookie to be sent across different domains
             maxAge: 24 * 60 * 60 * 1000
-        })
+        });
         return res.status(201).json({
             success: true,
             message: "user loggedIn successfully",
