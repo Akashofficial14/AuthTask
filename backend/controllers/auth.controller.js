@@ -19,7 +19,7 @@ const registerController = async (req, res) => {
         })
         let token = newUser.generateToken()
         //verify email
-        const mailUrl = `http://localhost:3000/api/auth/verify-email/${token}`
+        const mailUrl = `https://authtask-1.onrender.com/api/auth/verify-email/${token}`
         await sendMail(email, "Verification Email ",
             `<h3>click on the below link to login to your account</h3>
              ${mailUrl}
