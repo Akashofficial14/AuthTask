@@ -1,10 +1,15 @@
-import React from 'react';
-import { useForm } from 'react-hook-form';
-import { axiosInstance } from '../config/axiosInstance';
-import { toast } from 'react-toastify';
+import React from "react";
+import { useForm } from "react-hook-form";
+import { axiosInstance } from "../config/axiosInstance";
+import { toast } from "react-toastify";
 
 const Register = ({ setToggle }) => {
-  const { register, handleSubmit, reset, formState: { errors } } = useForm();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { isSubmitting, errors },
+  } = useForm();
 
   const onSubmit = async (data) => {
     try {
@@ -31,69 +36,88 @@ const Register = ({ setToggle }) => {
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
           {/* Full Name */}
           <div>
-            <label className="block text-gray-700 mb-1 text-xs font-bold ml-1">FULL NAME</label>
+            <label className="block text-gray-700 mb-1 text-xs font-bold ml-1">
+              FULL NAME
+            </label>
             <input
               {...register("name", { required: "Name is required" })}
               className="w-full bg-gray-50 border border-gray-200 text-sm rounded-xl p-3 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all"
-              placeholder="Akash..."
+              placeholder="Enter your full name"
             />
-            {errors.name && <p className="text-red-500 text-[10px] mt-0.5 ml-1">{errors.name.message}</p>}
+            {errors.name && (
+              <p className="text-red-500 text-[10px] mt-0.5 ml-1">
+                {errors.name.message}
+              </p>
+            )}
           </div>
 
           {/* Row: Mobile & City (Saves vertical space) */}
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-gray-700 mb-1 text-xs font-bold ml-1">MOBILE</label>
+              <label className="block text-gray-700 mb-1 text-xs font-bold ml-1">
+                MOBILE
+              </label>
               <input
                 type="tel"
                 {...register("mobileNumber", { required: "Required" })}
                 className="w-full bg-gray-50 border border-gray-200 text-sm rounded-xl p-3 focus:border-blue-500 outline-none"
-                placeholder="9876..."
+                placeholder="Enter your mobile number"
               />
             </div>
             <div>
-              <label className="block text-gray-700 mb-1 text-xs font-bold ml-1">CITY</label>
+              <label className="block text-gray-700 mb-1 text-xs font-bold ml-1">
+                CITY
+              </label>
               <input
                 {...register("city", { required: "Required" })}
                 className="w-full bg-gray-50 border border-gray-200 text-sm rounded-xl p-3 focus:border-blue-500 outline-none"
-                placeholder="Indore..."
+                placeholder="Enter your city"
               />
             </div>
           </div>
 
           {/* Email */}
           <div>
-            <label className="block text-gray-700 mb-1 text-xs font-bold ml-1">EMAIL ADDRESS</label>
+            <label className="block text-gray-700 mb-1 text-xs font-bold ml-1">
+              EMAIL ADDRESS
+            </label>
             <input
               {...register("email", { required: "Email is required" })}
               className="w-full bg-gray-50 border border-gray-200 text-sm rounded-xl p-3 focus:border-blue-500 outline-none"
-              placeholder="you@example.com"
+              placeholder="Enter your email"
             />
           </div>
 
           {/* Password */}
           <div>
-            <label className="block text-gray-700 mb-1 text-xs font-bold ml-1">PASSWORD</label>
+            <label className="block text-gray-700 mb-1 text-xs font-bold ml-1">
+              PASSWORD
+            </label>
             <input
               type="password"
-              {...register("password", { required: "Password is required", minLength: 6 })}
+              {...register("password", {
+                required: "Password is required",
+                minLength: 6,
+              })}
               className="w-full bg-gray-50 border border-gray-200 text-sm rounded-xl p-3 focus:border-blue-500 outline-none"
-              placeholder="••••••••"
+              placeholder="Enter your password"
             />
           </div>
 
-          <button 
-            type="submit" 
-            className="w-full bg-[#1c92ff] hover:bg-[#007ceb] text-white font-bold py-3.5 rounded-xl mt-4 transition-all shadow-lg shadow-blue-500/20 active:scale-[0.98] text-sm"
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="w-full bg-[#1c92ff] hover:bg-[#007ceb] text-white font-bold py-3.5 rounded-xl mt-4 transition-all shadow-lg shadow-blue-500/20 active:scale-[0.98] text-sm disabled:opacity-60 disabled:cursor-not-allowed"
           >
-            Sign Up
+            {isSubmitting ? "Registering..." : "Sign Up"}
           </button>
-          
-          <p 
-            onClick={() => setToggle(prev => !prev)} 
-            className='text-xs text-center text-gray-500 mt-4 cursor-pointer hover:text-blue-500 transition-colors'
+
+          <p
+            onClick={() => setToggle((prev) => !prev)}
+            className="text-xs text-center text-gray-500 mt-4 cursor-pointer hover:text-blue-500 transition-colors"
           >
-            Already have an account? <span className='text-blue-500 font-bold'>Sign In</span>
+            Already have an account?{" "}
+            <span className="text-blue-500 font-bold">Sign In</span>
           </p>
         </form>
       </div>

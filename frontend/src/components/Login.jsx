@@ -5,14 +5,22 @@ import { axiosInstance } from "../config/axiosInstance";
 import { toast } from "react-toastify";
 
 const Login = ({ setToggle }) => {
-  const { register, handleSubmit, reset, formState: { errors } } = useForm();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { isSubmitting, errors },
+  } = useForm();
   const navigate = useNavigate();
 
   const onSubmit = async (data) => {
     try {
       const response = await axiosInstance.post("/api/auth/login", data);
       if (response) {
-        localStorage.setItem("userData", JSON.stringify(response.data.existedUser));
+        localStorage.setItem(
+          "userData",
+          JSON.stringify(response.data.existedUser),
+        );
         toast.success("Login Successful!");
         reset();
         navigate("/profile");
@@ -60,9 +68,10 @@ const Login = ({ setToggle }) => {
 
           <button
             type="submit"
-            className="w-full bg-[#1c92ff] hover:bg-[#007ceb] text-white font-bold py-4 rounded-2xl mt-2 shadow-lg shadow-blue-500/30 transition-all active:scale-[0.98]"
+            disabled={isSubmitting}
+            className="w-full bg-[#1c92ff] hover:bg-[#007ceb] text-white font-bold py-4 rounded-2xl mt-2 shadow-lg shadow-blue-500/30 transition-all active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed"
           >
-            Log in
+            {isSubmitting ? "Logging in..." : "Log in"}
           </button>
 
           <div className="pt-4 text-center">

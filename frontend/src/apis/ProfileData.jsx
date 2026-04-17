@@ -8,6 +8,10 @@ export let getProfileData = async () => {
       return res.data.loggedInUserData;
     }
   } catch (error) {
+     if (error.response && error.response.status === 401) {
+      localStorage.removeItem("userData");
+      window.location.href = "/"; // login page pe redirect
+    }
     console.log("error while getting login data");
   }
 };

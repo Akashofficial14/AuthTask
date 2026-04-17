@@ -93,9 +93,10 @@ const loginController = async (req, res) => {
         })
         let token = existedUser.generateToken()
         res.cookie("token", token, {
-            httpOnly: true,
+            httpOnly: false,
             secure: true,      // MUST be true for SameSite: 'None'
             sameSite: "none",  // Allows cookie to be sent across different domains
+            path: "/",         // Ensure cookie is sent on all routes
             maxAge: 24 * 60 * 60 * 1000
         });
         return res.status(201).json({
