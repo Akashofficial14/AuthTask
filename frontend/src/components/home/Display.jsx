@@ -25,7 +25,7 @@ const Display = ({ view, data, setView, handleLogout }) => {
               Profile Details
             </h1>
             <p className="text-gray-400 font-medium italic">
-              Welcome back, Akash!
+              Welcome back, {data?.name || "User"}!
             </p>
           </div>
 
